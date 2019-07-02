@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+
+        <JDBC name="inno" tableName="logs">
+            <ConnectionFactory
+                    class="lesson13.db.ConnectionFactory" method="getConnection" />
+            <Column name="id" pattern="%u" isUnicode="false"/>
+            <Column name="date" isEventTimestamp="true" />
+            <Column name="log_level" pattern="%level" isUnicode="false"/>
+            <Column name="message" pattern="%m" isUnicode="false"/>
+            <Column name="exception" pattern="%throwable " isUnicode="false" />
+        </JDBC>
+
+    </Appenders>
+
+    <Loggers>
+        <Logger name= "lesson13" level="all" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="inno" />
+        </Logger>
+
+        <!-- Root Logger -->
+        <Root level="all">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="inno" />
+        </Root>
+    </Loggers>
+
+
+</Configuration>
