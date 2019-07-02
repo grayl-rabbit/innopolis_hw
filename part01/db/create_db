@@ -1,0 +1,70 @@
+
+create table "user"
+(
+	id serial not null,
+	name varchar(255) not null,
+	birthday date,
+	login_ID varchar(255),
+	city varchar(255),
+	email varchar(255),
+	description varchar(255)
+);
+
+create unique index user_id_uindex
+	on "user" (id);
+
+alter table "user"
+	add constraint user_pk
+		primary key (id);
+
+/*-----------------------------*/
+create type role_name as enum ('Administration', 'Clients', 'Billing');
+
+create table role
+(
+	id serial not null,
+    name  role_name,
+	description varchar(255)
+);
+
+create unique index role_id_uindex
+	on role (id);
+
+alter table role
+	add constraint role_pk
+		primary key (id);
+
+/*-----------------------------*/
+
+create table user_role
+(
+	id serial not null,
+	user_id int,
+	role_id int
+);
+
+create unique index user_role_id_uindex
+	on user_role (id);
+
+alter table user_role
+	add constraint user_role_pk
+		primary key (id);
+
+
+/*-----------------------------*/
+
+create table logs
+(
+	id serial not null,
+	date date,
+	log_level varchar(255),
+	message varchar(255),
+	exception varchar(255)
+);
+
+create unique index logs_id_uindex
+	on logs (id);
+
+alter table logs
+	add constraint logs_pk
+		primary key (id);
